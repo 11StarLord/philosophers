@@ -4,7 +4,7 @@ int check_philo_number(int numb_philo) //Verifica se o número de filósofos é 
 {
     if (numb_philo > 200)
     {
-        printf("Number of philosophers exceeds 200\n");
+    	printf("\033[0;41mNumber of philosophers exceeds 200\033[0m\n");
         return (1);
     }
     if (numb_philo <= 0)
