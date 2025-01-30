@@ -49,7 +49,7 @@ int	execution_time(struct timeval start)
 			(start.tv_sec * 1000 + start.tv_usec / 1000));
 }
 
-void philo_sleep(t_philo *philo, int time)
+void	philo_sleep(t_philo *philo, int time)
 {
 	struct timeval start;
 	long elapsed_time;
