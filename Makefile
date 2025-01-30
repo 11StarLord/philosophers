@@ -3,7 +3,7 @@ NAME = philo
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
-SRCS =	philosopher.c		\
+SRCS =	main.c		\
 	utils.c			\
 	validation.c		\
 	init.c
