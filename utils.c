@@ -39,3 +39,27 @@ int	ft_atoi(const char *nptr)
 	}
 	return (sign * result); 
 }
+
+int	execution_time(struct timeval start)
+{
+	struct timeval now;
+
+	gettimeofday(&now, NULL);
+	return ((now.tv_sec * 1000 + now.tv_usec / 1000) -
+			(start.tv_sec * 1000 + start.tv_usec / 1000));
+}
+
+void philo_sleep(t_philo *philo, int time)
+{
+	struct timeval start;
+	long elapsed_time;
+
+	gettimeofday(&start, NULL);
+	while (1)
+	{
+		elapsed_time = execution_time(start);
+		if (elapsed_time >= time || philo_die(philo))
+			break ;
+		usleep (100);
+	}
+}

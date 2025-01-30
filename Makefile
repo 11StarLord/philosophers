@@ -1,11 +1,13 @@
 NAME = philo
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -Iincludes
+CFLAGS = -Wall -Wextra -Werror
 
-SRCS =	./srcs/philosopher.c		\
-		./srcs/utils.c				\
-		./srcs/validation.c			\
+SRCS =	philosopher.c		\
+	utils.c			\
+	validation.c		\
+	init.c
+		
 
 OBJS = $(SRCS:.c=.o)
 
