@@ -4,7 +4,7 @@ int check_philo_number(int numb_philo) //Verifica se o número de filósofos é 
 {
     if (numb_philo > 200)
     {
-    	printf("\033[0;41mNumber of philosophers exceeds 200\033[0m\n");
+        printf("\033[0;41mNumber of philosophers exceeds 200\033[0m\n");
         return (1);
     }
     if (numb_philo <= 0)
@@ -23,7 +23,7 @@ int check_limits(char **argv) //Verifica se o número de filósofos está dentro
     return (check_philo_number(numb_philo));
 }
 
-int check_digits(char *str) //Válida se a string contém paenas dígitos
+int check_digits(char *str) //Verifica se a string contém apenas dígitos
 {
     int i;
 

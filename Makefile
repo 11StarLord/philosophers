@@ -1,13 +1,13 @@
 NAME = philo
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -Iincludes
 
 SRCS =	main.c		\
 	utils.c			\
-	validation.c		\
-	init.c
-		
+	validation.c	\
+	init.c			\
+	routines.c
 
 OBJS = $(SRCS:.c=.o)
 

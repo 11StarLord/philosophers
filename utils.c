@@ -40,25 +40,30 @@ int	ft_atoi(const char *nptr)
 	return (sign * result); 
 }
 
-int	execution_time(struct timeval start)
+int	execution_time(struct timeval start) //Obtém o tempo decorrido em milissegundos desde um determinado tempo de referência 
 {
-	struct timeval now;
+	struct timeval now; //Variavel do tipo struct timeval que armazenará o tempo actual
 
-	gettimeofday(&now, NULL);
+	gettimeofday(&now, NULL); //Função que obtem o tempo actual e armazenará na estrutura now, NULL indica que não estamos interessados nas informações do fuso horário
 	return ((now.tv_sec * 1000 + now.tv_usec / 1000) -
-			(start.tv_sec * 1000 + start.tv_usec / 1000));
+			(start.tv_sec * 1000 + start.tv_usec / 1000)); //Calcula e retorna o tempo decorrido
+			/*{ now.tv_sec * 1000} -> Converte os segundos actuais para milissegundos
+			  { now.tv_usec / 1000} -> Converte os microssegundos atuais para milissegundos (divisão inteira, então a parte fracionária é descartada)
+			  { start.tv_sec * 1000} -> Converte os segundos iniciais para milissegundos
+			  { start.tv_usec / 1000} -> Converte os microssegundos iniciais para milissegundos
+			*/
 }
 
-void	philo_sleep(t_philo *philo, int time)
+void	philo_sleep(t_philo *philo, int time) //Faz a thread dormir por um tempo especificado, verificando periodicamente se o filósofo morreu
 {
-	struct timeval start;
-	long elapsed_time;
+	struct timeval start; //Variável que armazenará o tempo inicial
+	long elapsed_time; //Declara uma variavel do tipo long para armazenar o tempo decorrido
 
-	gettimeofday(&start, NULL);
-	while (1)
+	gettimeofday(&start, NULL); //Obtem o tempo actual e armazena em start
+	while (1) //Inicia um loop infinito
 	{
-		elapsed_time = execution_time(start);
-		if (elapsed_time >= time || philo_die(philo))
+		elapsed_time = execution_time(start); //Calcula o tempo decorrido desde o inicio até o momento actual
+		if (elapsed_time >= time || philo_die(philo)) //Verifica se o tempo decorrido for maior ou igual ao tempo desejado || Se o filósofo ainda está vivo
 			break ;
 		usleep (100);
 	}
