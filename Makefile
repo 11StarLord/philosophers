@@ -4,9 +4,9 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -Iincludes
 
 SRCS =	main.c		\
-	utils.c			\
+	utils.c		\
 	validation.c	\
-	init.c			\
+	init.c		\
 	routines.c
 
 OBJS = $(SRCS:.c=.o)

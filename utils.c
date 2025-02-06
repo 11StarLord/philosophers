@@ -54,17 +54,16 @@ int	execution_time(struct timeval start) //Obtém o tempo decorrido em milissegu
 			*/
 }
 
-void	philo_sleep(t_philo *philo, int time) //Faz a thread dormir por um tempo especificado, verificando periodicamente se o filósofo morreu
+char    *check_char(char c) /* Retorna uma string com o status do filósofo */
 {
-	struct timeval start; //Variável que armazenará o tempo inicial
-	long elapsed_time; //Declara uma variavel do tipo long para armazenar o tempo decorrido
-
-	gettimeofday(&start, NULL); //Obtem o tempo actual e armazena em start
-	while (1) //Inicia um loop infinito
-	{
-		elapsed_time = execution_time(start); //Calcula o tempo decorrido desde o inicio até o momento actual
-		if (elapsed_time >= time || philo_die(philo)) //Verifica se o tempo decorrido for maior ou igual ao tempo desejado || Se o filósofo ainda está vivo
-			break ;
-		usleep (100);
-	}
+    if (c == 'e')
+        return ("\033[32mis eating\033[0m\n"); //Imprime verde is eating
+    else if (c == 'f')
+        return ("has taken a fork\n");
+    else if (c == 's')
+        return ("is sleeping\n");
+    else if (c == 't')
+        return ("is thinking\n");
+    else
+        return ("\033[0;31mdied\033[0m\n"); //Imprime vermelho died
 }

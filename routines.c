@@ -59,18 +59,19 @@ int philo_die(t_philo *philo) /* Verifica se o filósofo morreu */
     return (0); //Retorna 0 (falso) se o filósofo está vivo
 }
 
-char    *check_char(char c) /* Retorna uma string com o status do filósofo */
+void	philo_sleep(t_philo *philo, int time) //Faz a thread dormir por um tempo especificado, verificando periodicamente se o filósofo morreu
 {
-    if (c == 'e')
-        return ("\033[32mis eating\033[0m\n"); //Imprime verde is eating
-    else if (c == 'f')
-        return ("has taken a fork\n");
-    else if (c == 's')
-        return ("is sleeping\n");
-    else if (c == 't')
-        return ("is thinking\n");
-    else
-        return ("\033[0;31mdied\033[0m\n"); //Imprime vermelho died
+	struct timeval start; //Variável que armazenará o tempo inicial
+	long elapsed_time; //Declara uma variavel do tipo long para armazenar o tempo decorrido
+
+	gettimeofday(&start, NULL); //Obtem o tempo actual e armazena em start
+	while (1) //Inicia um loop infinito
+	{
+		elapsed_time = execution_time(start); //Calcula o tempo decorrido desde o inicio até o momento actual
+		if (elapsed_time >= time || philo_die(philo)) //Verifica se o tempo decorrido for maior ou igual ao tempo desejado || Se o filósofo ainda está vivo
+			break ;
+		usleep (100);
+	}
 }
 
 void    print_status(t_philo *philo, char c) /* Exibe o status do filósofo de forma sincronizada */
