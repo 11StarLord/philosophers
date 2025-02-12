@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: djoao <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/10 09:34:58 by djoao             #+#    #+#             */
+/*   Updated: 2025/02/10 09:35:03 by djoao            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
-int	ft_isdigit (int c)
+int	ft_isdigit(int c)
 {
 	if (c >= '0' && c <= '9')
 		return (1);
@@ -37,33 +49,28 @@ int	ft_atoi(const char *nptr)
 		result = result * 10 + (*nptr - '0');
 		nptr++;
 	}
-	return (sign * result); 
+	return (sign * result);
 }
 
-int	execution_time(struct timeval start) //Obtém o tempo decorrido em milissegundos desde um determinado tempo de referência 
+int	execution_time(struct timeval start)
 {
-	struct timeval now; //Variavel do tipo struct timeval que armazenará o tempo actual
+	struct timeval	now;
 
-	gettimeofday(&now, NULL); //Função que obtem o tempo actual e armazenará na estrutura now, NULL indica que não estamos interessados nas informações do fuso horário
-	return ((now.tv_sec * 1000 + now.tv_usec / 1000) -
-			(start.tv_sec * 1000 + start.tv_usec / 1000)); //Calcula e retorna o tempo decorrido
-			/*{ now.tv_sec * 1000} -> Converte os segundos actuais para milissegundos
-			  { now.tv_usec / 1000} -> Converte os microssegundos atuais para milissegundos (divisão inteira, então a parte fracionária é descartada)
-			  { start.tv_sec * 1000} -> Converte os segundos iniciais para milissegundos
-			  { start.tv_usec / 1000} -> Converte os microssegundos iniciais para milissegundos
-			*/
+	gettimeofday(&now, NULL);
+	return ((now.tv_sec * 1000 + now.tv_usec / 1000)
+		- (start.tv_sec * 1000 + start.tv_usec / 1000));
 }
 
-char    *check_char(char c) /* Retorna uma string com o status do filósofo */
+char	*check_char(char c)
 {
-    if (c == 'e')
-        return ("\033[32mis eating\033[0m\n"); //Imprime verde is eating
-    else if (c == 'f')
-        return ("has taken a fork\n");
-    else if (c == 's')
-        return ("is sleeping\n");
-    else if (c == 't')
-        return ("is thinking\n");
-    else
-        return ("\033[0;31mdied\033[0m\n"); //Imprime vermelho died
+	if (c == 'e')
+		return ("\033[32mis eating\033[0m\n");
+	else if (c == 'f')
+		return ("has taken a fork\n");
+	else if (c == 's')
+		return ("is sleeping\n");
+	else if (c == 't')
+		return ("is thinking\n");
+	else
+		return ("\033[0;31mdied\033[0m\n");
 }

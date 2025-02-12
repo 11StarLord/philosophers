@@ -1,64 +1,76 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   validation.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: djoao <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/10 09:43:02 by djoao             #+#    #+#             */
+/*   Updated: 2025/02/10 09:43:08 by djoao            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
-int check_philo_number(int numb_philo) //Verifica se o número de filósofos é válido
+int	check_philo_number(int n_philo)
 {
-    if (numb_philo > 200)
-    {
-        printf("\033[0;41mNumber of philosophers exceeds 200\033[0m\n");
-        return (1);
-    }
-    if (numb_philo <= 0)
-    {
-        printf("\033[0;41mError\033[0m\n");
-        return (1);
-    }
-    return (0);
+	if (n_philo > 200)
+	{
+		printf("\033[0;41mNumber of philosophers exceeds 200\033[0m\n");
+		return (1);
+	}
+	if (n_philo <= 0)
+	{
+		printf("\033[0;41mError\033[0m\n");
+		return (1);
+	}
+	return (0);
 }
 
-int check_limits(char **argv) //Verifica se o número de filósofos está dentro do limite
+int	check_limits(char **argv)
 {
-    int numb_philo;
+	int	n_philo;
 
-    numb_philo = ft_atoi(argv[1]);
-    return (check_philo_number(numb_philo));
+	n_philo = ft_atoi(argv[1]);
+	return (check_philo_number(n_philo));
 }
 
-int check_digits(char *str) //Verifica se a string contém apenas dígitos
+int	check_digits(char *str)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    if (str[i] == '+')
-        i++;
-    while (str[i])
-    {
-        if (!ft_isdigit(str[i]))
-            return (0);
-        i++;
-    }
-    return (1);
+	i = 0;
+	if (str[i] == '+')
+		i++;
+	while (str[i])
+	{
+		if (!ft_isdigit(str[i]))
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
-int check_args(int argc, char **argv) //Função principal para verificar argumentos
+int	check_args(int argc, char **argv)
 {
-    int i;
+	int	i;
 
-    if (argc != 5 && argc != 6)
-    {
-        printf("./philo [number_of_philosophers] [time_to_die] [time_to_eat] [time_to_sleep]\n");
-        return (1);
-    }
-    if (check_limits(argv))
-        return (1);
-    i = 1;
-    while (i < argc)
-    {
-        if (!check_digits(argv[i]))
-        {
-            printf("\033[0;41mError\033[0m\n");
-            return (1);
-        }
-        i++;
-    }
-    return (0);
+	if (argc != 5 && argc != 6)
+	{
+		printf("./philo nbr_of_philo time_to_die time_to_eat time_to_sleep\n");
+		return (1);
+	}
+	if (check_limits(argv))
+		return (1);
+	i = 1;
+	while (i < argc)
+	{
+		if (!check_digits(argv[i]))
+		{
+			printf("\033[0;41mError\033[0m\n");
+			return (1);
+		}
+		i++;
+	}
+	return (0);
 }
