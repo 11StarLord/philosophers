@@ -64,13 +64,13 @@ int	execution_time(struct timeval start)
 char	*check_char(char c)
 {
 	if (c == 'e')
-		return ("\033[32mis eating\033[0m\n");
+		return (G"is eating\n"RST);
 	else if (c == 'f')
-		return ("has taken a fork\n");
+		return (Y"has taken a fork\n"RST);
 	else if (c == 's')
-		return ("is sleeping\n");
+		return (W"is sleeping\n"RST);
 	else if (c == 't')
-		return ("is thinking\n");
+		return (B"is thinking\n"RST);
 	else
-		return ("\033[0;31mdied\033[0m\n");
+		return (RED"death\n"RST);
 }

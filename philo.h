@@ -19,10 +19,17 @@
 # include <stdlib.h>
 # include <stdio.h>
 
-typedef struct s_params
+# define RST	"\033[0m"
+# define RED	"\033[1;31m"
+# define G		"\033[1;32m"
+# define Y		"\033[1;33m"
+# define W		"\033[1;37m"
+# define B		"\033[1;34m"
+
+typedef struct s_simulations
 {
-	pthread_mutex_t	init_mutex;
-	pthread_mutex_t	*eat_mutex;
+	pthread_mutex_t	start_mutex;
+	pthread_mutex_t	*forks;
 	pthread_mutex_t	dead_mutex;
 	pthread_mutex_t	g_print_mutex;
 	pthread_t		*threads;
@@ -30,16 +37,18 @@ typedef struct s_params
 	int				time_die;
 	int				time_eat;
 	int				time_sleep;
-	int				died;
+	int				death;
 	int				ac;
 	char			**av;
-}	t_params;
+}	t_simulations;
 
 typedef struct s_philo
 {
 	struct timeval	time_born;
-	t_params		*par;
+	t_simulations	*sim_data;
 	int				id;
+	int				fork_left;
+	int				fork_right;
 	int				numb_meal;
 	int				time_last_meal;
 	int				stamina;
@@ -57,9 +66,9 @@ int		check_args(int argc, char **argv);
 
 int		philo_die(t_philo *philo);
 void	philo_sleep(t_philo *philo, int time);
-void	init_philo(t_philo *philo, t_params *params, int id);
-void	start_forks_mutex(t_params *params);
-void	init_params(t_params *params, int argc, char **argv);
+void	start_philo(t_philo *philo, t_simulations *simulations, int id);
+void	start_forks(t_simulations *simulations);
+void	start_simulations(t_simulations *simulations, int argc, char **argv);
 void	philo_eat(t_philo *philo);
 void	check_forks(t_philo *philo);
 void	print_status(t_philo *philo, char c);
@@ -67,6 +76,6 @@ void	print_status(t_philo *philo, char c);
 void	cordinate_start(t_philo *philo);
 void	philo_case_one(t_philo *philo);
 void	*philo_life(void *arg);
-void	clean_resources(t_params *params, t_philo *philo);
+void	clean_resources(t_simulations *simulations, t_philo *philo);
 
 #endif

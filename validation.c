@@ -16,12 +16,12 @@ int	check_philo_number(int n_philo)
 {
 	if (n_philo > 200)
 	{
-		printf("\033[0;41mNumber of philosophers exceeds 200\033[0m\n");
+		printf(RED"Number of philosophers above of 200\n"RST);
 		return (1);
 	}
 	if (n_philo <= 0)
 	{
-		printf("\033[0;41mError\033[0m\n");
+		printf(RED"Error\n"RST);
 		return (1);
 	}
 	return (0);
@@ -67,7 +67,7 @@ int	check_args(int argc, char **argv)
 	{
 		if (!check_digits(argv[i]))
 		{
-			printf("\033[0;41mError\033[0m\n");
+			printf(RED"Error\n"RST);
 			return (1);
 		}
 		i++;

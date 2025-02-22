@@ -12,34 +12,37 @@
 
 #include "philo.h"
 
-void	init_philo(t_philo *philo, t_params *params, int id)
+void	start_philo(t_philo *philo, t_simulations *simulations, int id)
 {
 	philo->id = id;
-	philo->par = params;
-	philo->stamina = params->time_die;
+	philo->sim_data = simulations;
+	philo->stamina = simulations->time_die;
 	philo->time_last_meal = 0;
-	if (params->ac == 6)
-		philo->numb_meal = ft_atoi(params->av[5]);
+	philo->fork_left = (philo->id - 1 + philo->sim_data->n_philo)
+		% philo->sim_data->n_philo;
+	philo->fork_right = philo->id % philo->sim_data->n_philo;
+	if (simulations->ac == 6)
+		philo->numb_meal = ft_atoi(simulations->av[5]);
 	else
 		philo->numb_meal = -1;
 }
 
-void	start_forks_mutex(t_params *params)
+void	start_forks(t_simulations *simulations)
 {
 	int	i;
 	int	n_philo;
 
 	i = 0;
-	n_philo = params->n_philo;
-	params->eat_mutex = malloc(sizeof(pthread_mutex_t) * n_philo);
-	if (params->eat_mutex == NULL)
+	n_philo = simulations->n_philo;
+	simulations->forks = malloc(sizeof(pthread_mutex_t) * n_philo);
+	if (simulations->forks == NULL)
 	{
 		write(2, "Error: Mutex allocation failed\n", 31);
 		return ;
 	}
 	while (i < n_philo)
 	{
-		if (pthread_mutex_init(&params->eat_mutex[i], NULL) != 0)
+		if (pthread_mutex_init(&simulations->forks[i], NULL) != 0)
 		{
 			write(2, "Error: Mutex initialization failed\n", 35);
 			return ;
@@ -48,21 +51,21 @@ void	start_forks_mutex(t_params *params)
 	}
 }
 
-void	init_params(t_params *params, int argc, char **argv)
+void	start_simulations(t_simulations *simulations, int argc, char **argv)
 {
-	params->ac = argc;
-	params->av = argv;
-	params->n_philo = ft_atoi(argv[1]);
-	params->time_die = ft_atoi(argv[2]);
-	params->time_eat = ft_atoi(argv[3]);
-	params->time_sleep = ft_atoi(argv[4]);
-	params->died = 0;
-	if (pthread_mutex_init(&params->init_mutex, NULL) != 0
-		|| pthread_mutex_init(&params->dead_mutex, NULL) != 0
-		|| pthread_mutex_init(&params->g_print_mutex, NULL) != 0)
+	simulations->ac = argc;
+	simulations->av = argv;
+	simulations->n_philo = ft_atoi(argv[1]);
+	simulations->time_die = ft_atoi(argv[2]);
+	simulations->time_eat = ft_atoi(argv[3]);
+	simulations->time_sleep = ft_atoi(argv[4]);
+	simulations->death = 0;
+	if (pthread_mutex_init(&simulations->start_mutex, NULL) != 0
+		|| pthread_mutex_init(&simulations->dead_mutex, NULL) != 0
+		|| pthread_mutex_init(&simulations->g_print_mutex, NULL) != 0)
 	{
 		write(2, "Error: Initializing mutex\n", 26);
 		return ;
 	}
-	start_forks_mutex(params);
+	start_forks(simulations);
 }

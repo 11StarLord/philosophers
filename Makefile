@@ -18,8 +18,8 @@ CFLAGS = -Wall -Wextra -Werror -Iincludes
 SRCS =	main.c		\
 	utils.c		\
 	validation.c	\
-	init.c		\
-	routines.c
+	start_structs.c		\
+	philo_routines.c
 
 OBJS = $(SRCS:.c=.o)
 
