@@ -13,7 +13,7 @@
 NAME = philo
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -Iincludes
+CFLAGS = -Wall -Wextra -Werror
 
 SRCS =	main.c		\
 	utils.c		\
